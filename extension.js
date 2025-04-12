@@ -8,8 +8,9 @@ function activate(context) {
     if (!editor) return;
 
     const code = editor.document.getText();
+    const scriptPath = path.join(__dirname, 'index.py');
 
-    const result = spawnSync('python', ['index.py'], {
+    const result = spawnSync('python3', scriptPath, {
       input: code,
       encoding: 'utf-8'
     });
