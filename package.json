@@ -7,12 +7,23 @@
     "vscode": "^1.50.0"
   },
   "main": "extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.removeComments",
-        "title": "Remove Comments"
-      }
-    ]
-  }
+  "menus": {
+  "editor/context": [
+    {
+      "command": "extension.removeComments",
+      "when": "editorLangId == python",
+      "group": "navigation"
+    }
+  ]
+}, 
+"contributes": {
+  "keybindings": [
+    {
+      "command": "extension.removeComments",
+      "key": "ctrl+alt+c",
+      "when": "editorLangId == python"
+    }
+  ]
+}
+
 }

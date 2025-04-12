@@ -1,16 +1,19 @@
 const vscode = require('vscode');
 const { spawnSync } = require('child_process');
-const fs = require('fs');
+const path = require('path');
 
 function activate(context) {
   let disposable = vscode.commands.registerCommand('extension.removeComments', async function () {
     const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
+    if (!editor) {
+      vscode.window.showErrorMessage('No active editor found!');
+      return;
+    }
 
     const code = editor.document.getText();
-    const scriptPath = path.join(__dirname, 'index.py');
+    const scriptPath = path.join(__dirname,'index.py');
 
-    const result = spawnSync('python3', scriptPath, {
+    const result = spawnSync('python3', [scriptPath], {
       input: code,
       encoding: 'utf-8'
     });
@@ -19,6 +22,13 @@ function activate(context) {
       vscode.window.showErrorMessage("Error running comment remover: " + result.error.message);
       return;
     }
+
+    if (result.stderr) {
+      vscode.window.showErrorMessage("Error output from Python script: " + result.stderr);
+      return;
+    }
+
+    console.log(result.stdout);
 
     const fullRange = new vscode.Range(
       editor.document.positionAt(0),
@@ -32,6 +42,7 @@ function activate(context) {
 
   context.subscriptions.push(disposable);
 }
+
 exports.activate = activate;
 
 function deactivate() {}
