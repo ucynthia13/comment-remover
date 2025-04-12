@@ -5,8 +5,9 @@ import sys
 def remove_comments(code):
     result = []
     previous_end = (1, 0)  
+    code_bytes = BytesIO(code.encode('utf-8'))
 
-    tokens = tokenize.tokenize(BytesIO(code.encode('utf-8')).readline)
+    tokens = tokenize.tokenize(code_bytes.readline)
     for token in tokens:
         token_type = token.type
         token_string = token.string

@@ -11,7 +11,7 @@ function activate(context) {
     }
 
     const code = editor.document.getText();
-    const scriptPath = path.join(__dirname,'index.py');
+    const scriptPath = path.join(__dirname,'main.py');
 
     const result = spawnSync('python3', [scriptPath], {
       input: code,
