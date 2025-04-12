@@ -1,5 +1,6 @@
 import tokenize
 from io import BytesIO
+import sys
 
 def remove_comments(code):
     result = []
@@ -28,12 +29,6 @@ def remove_comments(code):
 
     return ''.join(result)
 
-sample_code = """
-def   spaced_out ( a ,   b ) :  # weird spacing
-    x = a + b  # inline comment
-    y= a* b#commentwithoutspace
-    z = (  a  +  b  )  #   excessive   spaces   
-    return   z  # multiple spaces before and after
-"""
-
-print(remove_comments(sample_code))
+if __name__ == "__main__":
+    input = sys.stdin.read()
+    print(remove_comments(input), end='')
