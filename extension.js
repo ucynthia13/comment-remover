@@ -13,7 +13,7 @@ function activate(context) {
     const code = editor.document.getText();
     const scriptPath = path.join(__dirname,'main.py');
 
-    const result = spawnSync('python3', [scriptPath], {
+    const result = spawnSync('python', [scriptPath], {
       input: code,
       encoding: 'utf-8'
     });
